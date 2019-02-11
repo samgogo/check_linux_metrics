@@ -1,30 +1,11 @@
 # check_linux_metrics
-[check_linux_metrics](https://github.com/kxr/check_linux_metrics)
-A monitoring plugin for icinga/nagios/nsca, that reports basic system metrics of a linux host: cpu, load, threads, openfiles, procs, diskio, disku, memory, swap, network
+监控 linux 系统基本指标：cpu，负载，线程，句柄，procs，磁盘 io，磁盘使用率，内存，交换内存，网络。
 
 ## Key features
-
- - **Minimal dependency:** Only needs basic python libraries which are installed by default on linux, all the metrics are calculated from the /proc filesystem
-
- - **Minimal privilege:**  Can be run by any non-priviliged user. Does not require root
-
- - **No Sampling:** Important metrics like CPU, DiskIO, NetworkIO and new process forks are calculated based on the cumulative values provided by the kernel. These cumulative values are provided by the kernel since uptime, when any of these checks are called the first time, the values are copied in the interim directory. Next time whenever the plugin is called, the diffrential/interim values are reported. This ensures that there is no peak/spike missed in between the plugin calls.
-
-## TODO
- - Improve and stanadardize argument handling
- - Print usage instructions if wrong/bad arguments are passed
- - Add more sanity checks for arguments
- - Add more warning and critical thresholds
- - Move the output printing part from each function to a single function
- - Enable/disable perfdata
- - Add a file age plugin?
- - Add a Process wise memory and cpu usage reporting function?
- - Add functionality of directly sending email (making this script usefull as a standalone monitoring)
- - Add graphite output support?
- 
-## Program Structure
-
-  The Main function checks and validate arguments and call the respective independent functions check_cpu etc.
+## 主要特点
+ - **最小依赖：** 只需要系统默认的基础 python 库，所有指标来自 /proc。
+ - **最小权限：** 可运行在非特权用户下。不需要 root 权限
+ - **没有采样：** 重要指标如 CPU，磁盘IO，网络IO 等的收集方式是通过对基于内核提供的累计值进行计算。这些累计值由内核启动时就开始采集。当第一次运行 checks 程序，数值会被复制到 interim 目录下。下一次再运行时，两次的差值将被作为结果输出。这样确保不会收系统峰值的影响。
 
 ## Usage Examples
  - CPU
