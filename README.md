@@ -23,6 +23,7 @@
         CPU Usage: 9.17% [t:60.13] (OK) | cpu=9.17%;80;99 user=1.01%;80;99 system=0.55%;80;99 iowait=7.54%;80;99 nice=0.05%;80;99 irq=0.00%;80;99 softirq=0.02%;80;99 steal=0.00%;80;99
         
         # CPU Usage / cpu：cpu 使用率
+        # t：取样用时
         # user: 表示用户空间程序的cpu使用率（没有通过nice调度）
         # system: 表示系统空间的cpu使用率，主要是内核程序。
         # iowait: cpu运行时在等待io的时间
@@ -49,7 +50,11 @@
 
         [user@localhost ~]$ ./check_linux_metrics.py load ,,5 ,,10
         Load1: 0.34 Load5: 0.36 Load15: 0.36 (OK) | load1=0.34;; load5=0.36;; load15=0.36;5;10
-
+        
+        # load1： 1分钟平均负载
+        # load5： 5分钟平均负载
+        # load15： 15分钟平均负载
+        
  - Threads
 
 `<script> threads [warn#] [critical#]`
@@ -59,6 +64,10 @@
 
         [user@localhost ~]$ ./check_linux_metrics.py threads 10 50
         Threads: 1/207  (OK) | running=1.00;10;50 total=207.00
+        
+        # threads：线程数
+        # running：在采样时刻，运行队列的任务的数目
+        # total：在采样时刻，系统中活跃的任务的个数（不包括运行已经结束的任务）
 
  - Open Files
 
@@ -69,6 +78,9 @@
 
         [user@localhost ~]$ ./check_linux_metrics.py files 5000 50000
         Open Files: 1344 (free: 0) (OK) | open=1344.00;5000;50000;0;1202794 free=0.00
+        
+        # Open Files：已分配文件句柄的数目
+        # free：已使用文件句柄的数目
 
  - Processes
 
@@ -76,6 +88,7 @@
 
         [user@localhost ~]$ ./check_linux_metrics.py procs
         This was the first run, run again to get values
+        # 第一次运行，再运行一次将得到数值。
 
         [user@localhost ~]$ ./check_linux_metrics.py procs
         Total:149 Running:1 Sleeping:148 Waiting:0 Zombie:0 Others:0 New_Forks:4.55/s | total=149.00 forks=4.55 sleeping=148.00 running=1.00 waiting=0.00 zombie=0.00 others=0.00
@@ -91,6 +104,14 @@
 
         [user@localhost ~]$ ./check_linux_metrics.py procs ,16, ,32,
         Total:149 Running:1 Sleeping:148 Waiting:0 Zombie:0 Others:0 New_Forks:4.52/s (OK) | total=149.00;; forks=4.52 sleeping=148.00 running=1.00;16;32 waiting=0.00;; zombie=0.00 others=0.00
+        
+        # Total：全部进程
+        # Running：运行的进程
+        # Sleeping：休眠的进程
+        # Waiting：等待的进程
+        # Zombie：僵尸进程
+        # Other：其他
+        # New_Forks: 建立新进程的速度
 
  - Disk IO
 
@@ -115,6 +136,13 @@
 
         [user@localhost ~]$ ./check_linux_metrics.py diskio /dev/VolGroup/lv_root
         /dev/VolGroup/lv_root(dm-0) Read: 0.00 sec/s (0.00 t/s) Write: 1074.80 sec/s (134.35 t/s) [t:60.04] | read_operations=0.00 read_sectors=0.00 read_time=0.00 write_operations=134.35 write_sectors=1074.80 write_time=34072.15
+        
+        # read_operations：读操作
+        # read_sectors：读扇区数
+        # read_time：读时间
+        # write_operations：写操作
+        # write_sectors：写扇区数
+        # write_time：写时间
 
  - Disk Usage
 
@@ -131,6 +159,7 @@
 
         [user@localhost ~]$ ./check_linux_metrics.py disku /var 75 90
         Plugin Error: Mount point not valid: (/var)
+        
 
  - Memory
 
@@ -143,6 +172,10 @@
 
         [user@localhost ~]$ ./check_linux_metrics.py memory 75 90
         Memory Used: 786.90MB / 11845.97MB (6.64%) (OK) | used=786.90;8884;10661;0;11845 cached=10911.13 active=7144.82
+        
+        # Memory Used：已使用内存
+        # cached：缓存
+        # active：最近被使用的内存
 
  - Swap
 
@@ -155,6 +188,9 @@
 
         [user@localhost ~]$ ./check_linux_metrics.py swap 75 90
         Swap Used: 0.11MB / 5992.00MB (0.00%) (OK) | used=0.11;4493;5392;0;5991 cached=0.18
+        
+        # Swap Used：已使用Swap
+        # cached：缓存
 
  - Network
 
@@ -170,3 +206,9 @@
 
         [user@localhost ~]$ ./check_linux_metrics.py network eth0 30,50 60,80
         eth0 Rx: 0.01 MB/s (17.80 p/s) Tx: 0.00 MB/s (11.62 p/s) [t:60.05] (OK) | RX_MBps=0.01;30;60 RX_PKps=17.80 TX_MBps=0.00;50;80 TX_PKps=11.62 PK_ERRORS=0.00
+        
+        # RX_MBps：接收流量
+        # RX_PKps：接收数据包
+        # TX_MBps：发送流量
+        # TX_PKps：发送数据包
+        # PK_ERRORS：数据包错误
