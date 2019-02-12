@@ -14,12 +14,22 @@
 
         [user@localhost ~]$ ./check_linux_metrics.py cpu
         This was the first run, run again to get values
-
+        # 第一次运行，再运行一次将得到数值。
+        
         [user@localhost ~]$ ./check_linux_metrics.py cpu
         CPU Usage: 7.57% [t:60.04] | cpu=7.57% user=1.00% system=0.54% iowait=5.97% nice=0.04% irq=0.00% softirq=0.01% steal=0.00%
 
         [user@localhost ~]$ ./check_linux_metrics.py cpu 80 99
         CPU Usage: 9.17% [t:60.13] (OK) | cpu=9.17%;80;99 user=1.01%;80;99 system=0.55%;80;99 iowait=7.54%;80;99 nice=0.05%;80;99 irq=0.00%;80;99 softirq=0.02%;80;99 steal=0.00%;80;99
+        
+        # CPU Usage / cpu：cpu 使用率
+        # user: 表示用户空间程序的cpu使用率（没有通过nice调度）
+        # system: 表示系统空间的cpu使用率，主要是内核程序。
+        # iowait: cpu运行时在等待io的时间
+        # nice: 表示用户空间且通过nice调度过的程序的cpu使用率。
+        # irq: cpu处理硬中断的数量
+        # softirq: cpu处理软中断的数量
+        # steal: 被虚拟机偷走的cpu
 
  - Load
 
